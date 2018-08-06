@@ -66,17 +66,23 @@ public class InstructionMemory {
 	}
 	
 	public Instruction getInstruction(BitData address) throws InstructionMemoryException {
-		if(this.memory.get(address) != null) {
-			return this.memory.get(address);
+		if(address.length() == Instruction.INSTRUCTION_SIZE) {
+			if(this.memory.get(address) != null) {
+				return this.memory.get(address);
+			}
+			else {
+				throw new InstructionMemoryException("This address is empty. Address " + address);
+			}
 		}
 		else {
-			throw new InstructionMemoryException("This address is empty. Address " + address);
+			throw new InstructionMemoryException("Wrong address size. Address has " + address.length() + " bit(s), but need " + Instruction.INSTRUCTION_SIZE + " bit(s). Address = " + address);
 		}
+		
 	}
 
 	@Override
 	public String toString() {
-		String all_instr = "Instruction memory - " + this.name;
+		String all_instr = "Instruction memory - " + this.name + "\n";
 		
 		for (BitData key: this.memory.keySet()){
 			Instruction instr = this.memory.get(key);

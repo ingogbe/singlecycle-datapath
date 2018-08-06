@@ -50,10 +50,10 @@ public class BarrelShifter {
 	@Override
 	public String toString() {
 		String str = "Barrel Shifter - " + this.name + "\n";
-		str += "Input: " + this.input + "\n";
+		str += "Input: " + this.input + " / Size: " + this.input.length() + "\n";
 		str += "Shift " + this.n_bits_shift + " bit(s)\n";
 		try {
-			str += "Output: " + this.getOutput();
+			str += "Output: " + this.getOutput() + " / Size: " + this.getOutput().length();
 		} catch (BarrelShifterException e) {
 			str += "Output: no input setted";
 		}

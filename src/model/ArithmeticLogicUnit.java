@@ -138,9 +138,11 @@ public class ArithmeticLogicUnit {
 		BitData xorAux = new BitData(input2Aux.length());
 		
 		do {
+			//Sum
 			xorAux = new BitData(input1Aux.length(), input1Aux);
 			xorAux.xor(input2Aux);
 			
+			//Carry
 			andAux = new BitData(input1Aux.length(), input1Aux);
 			andAux.and(input2Aux);
 			

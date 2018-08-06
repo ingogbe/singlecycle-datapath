@@ -28,11 +28,13 @@ public class BarrelExtensor {
 	
 	public BitData getOutput() throws BarrelExtensorException {
 		if(this.input != null) {
-			BitData result = new BitData(32);
+			BitData result = new BitData(this.extendTo_nBits);
 			
-			for(int i = this.input.length(); i < this.extendTo_nBits; i++) {
-				if(this.input.get(i - (this.input.length()))) {
-					result.set(i);
+			for(int i = 0; i < this.extendTo_nBits; i++) {
+				if(i >= (this.extendTo_nBits - this.input.length())) {
+					if(this.input.get(i - (this.extendTo_nBits - this.input.length()))) {
+						result.set(i);
+					}
 				}
 			}
 			
@@ -46,10 +48,10 @@ public class BarrelExtensor {
 	@Override
 	public String toString() {
 		String str = "Barrel Extensor - " + this.name + "\n";
-		str += "Input: " + this.input + "\n";
+		str += "Input: " + this.input + "/ Size:" + this.input.length() + "\n";
 		str += "Extended " + this.extendTo_nBits + " bit(s)\n";
 		try {
-			str += "Output: " + this.getOutput();
+			str += "Output: " + this.getOutput() + "/ Size:" + this.getOutput().length();
 		} catch (BarrelExtensorException e) {
 			str += "Output: no input setted";
 		}
