@@ -23,19 +23,22 @@ public class Registers {
 	private BitData writeRegisterAddress1;
 	
 	private boolean writeSignal;
+	private String name;
 	
-	public Registers(boolean initSignal) {
+	public Registers(String name, boolean initSignal) {
 		super();
 		
+		this.name = name;
 		this.writeSignal = initSignal;
 	}
 	
-	public Registers() throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
+	public Registers(String name) throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
 		super();
-		ArithmeticLogicUnit alu = new ArithmeticLogicUnit(ArithmeticLogicUnit.SIGNAL_ADD);
+		ArithmeticLogicUnit alu = new ArithmeticLogicUnit("Registers " + this.name + " internal ALU", ArithmeticLogicUnit.SIGNAL_ADD);
 		alu.addInputSignal(ArithmeticLogicUnit.SIGNAL_ADD, ArithmeticLogicUnit.OPERATION_ADD);
 		
 		this.writeSignal = false;
+		this.name = name;
 		this.length = 32;
 		this.registers = new HashMap<BitData, BitData>();
 		
@@ -124,7 +127,8 @@ public class Registers {
 
 	@Override
 	public String toString() {
-		String regs = "Length: " + length + "\n";
+		String regs = "Registers: " + this.name + "\n";
+		regs += "Length: " + length + "\n";
 		regs = regs + "Write Signal: " + (writeSignal ? 1 : 0) + "\n";
 		
 		regs = regs + "Read register 1: Address[" + readRegisterAddress1.toString("") + "](" + readRegisterAddress1.toZeroPadDecimal() + ") Value[" + this.registers.get(readRegisterAddress1).toString("") + "]\n";

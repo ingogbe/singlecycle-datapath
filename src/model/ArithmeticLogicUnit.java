@@ -27,11 +27,13 @@ public class ArithmeticLogicUnit {
 	private BitData input1;
 	private BitData input2;
 	private HashMap<BitData, Integer> signalMap;
+	private String name;
 	
-	public ArithmeticLogicUnit() throws MultiplexerException, ArithmeticLogicUnitException {
+	public ArithmeticLogicUnit(String name) throws MultiplexerException, ArithmeticLogicUnitException {
 		super();
 		
 		this.signalSize = 3;
+		this.name = name;
 		
 		boolean[] initSignal = new boolean[signalSize];
 		for(int i = 0; i < signalSize; i++) {
@@ -44,16 +46,17 @@ public class ArithmeticLogicUnit {
 		this.input2 = new BitData(32);
 		this.signalMap = new HashMap<BitData, Integer>();
 		
-		addInputSignal(SIGNAL_AND, OPERATION_ADD);
+		addInputSignal(SIGNAL_AND, OPERATION_AND);
 		addInputSignal(SIGNAL_OR, OPERATION_OR);
 		addInputSignal(SIGNAL_ADD, OPERATION_ADD);
 		addInputSignal(SIGNAL_SUB, OPERATION_SUB);
 	}
 	
-	public ArithmeticLogicUnit(int signalSize) {
+	public ArithmeticLogicUnit(String name, int signalSize) {
 		super();
 		
 		this.signalSize = signalSize;
+		this.name = name;
 		
 		boolean[] initSignal = new boolean[signalSize];
 		for(int i = 0; i < signalSize; i++) {
@@ -67,9 +70,10 @@ public class ArithmeticLogicUnit {
 		this.signalMap = new HashMap<BitData, Integer>();
 	}
 	
-	public ArithmeticLogicUnit(boolean[] initSignal) {
+	public ArithmeticLogicUnit(String name, boolean[] initSignal) {
 		super();
 		
+		this.name = name;
 		this.signalSize = initSignal.length;
 		this.signal = initSignal;
 		this.zero = false;
@@ -142,7 +146,7 @@ public class ArithmeticLogicUnit {
 			
 			input1Aux = xorAux;
 			
-			BarrelShifter shifter = new BarrelShifter();
+			BarrelShifter shifter = new BarrelShifter("ALU " + this.name + " internal shifter");
 			shifter.setInput(andAux, 1);
 			input2Aux = shifter.getOutput();
 			
@@ -207,6 +211,27 @@ public class ArithmeticLogicUnit {
 			this.zero = false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		String str = "Arithmetic Logic Unit - " + this.name + "\n";
+		str += "Signal: " + BitData.booleanToBitData(this.signal) + " Size: " + this.signalSize + "\n";
+		str += "Input 1: " + this.input1 + "\n"; 
+		str += "Input 2: " + this.input2 + "\n";
+		str += "Zero flag: " + this.zero + "\n";
+		str += "Signal Map: \n";
+		
+		for(BitData key: this.signalMap.keySet()){
+			String aux = this.signalMap.get(key) == 1 ? "And" : this.signalMap.get(key) == 2 ? "Or" : this.signalMap.get(key) == 3 ? "Add" : this.signalMap.get(key) == 4 ? "Sub" : "Error!";
+			
+			str += " - " + key + " = " + aux + "\n";
+		}
+		
+		return str;
+		
+	}
+	
+	
 	
 	
 }

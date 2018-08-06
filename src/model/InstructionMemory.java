@@ -17,12 +17,14 @@ import exception.InstructionMemoryException;
 import exception.MultiplexerException;
 
 public class InstructionMemory {
-	HashMap<BitData, Instruction> memory;
+	private HashMap<BitData, Instruction> memory;
+	private String name;
 	
-	public InstructionMemory() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, FileException, IOException, InstructionMemoryException, InstructionException, BitDataException, ArithmeticLogicUnitException, MultiplexerException, BarrelShifterException, BarrelExtensorException{
+	public InstructionMemory(String name) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, FileException, IOException, InstructionMemoryException, InstructionException, BitDataException, ArithmeticLogicUnitException, MultiplexerException, BarrelShifterException, BarrelExtensorException{
 		super();
 		
 		this.memory = new HashMap<BitData, Instruction>();
+		this.name = name;
 		
 		loadInstructions();
 	}
@@ -44,7 +46,7 @@ public class InstructionMemory {
 				if(!instr.isEmpty()) {
 					addInstruction(address, new Instruction(instr));
 
-					ArithmeticLogicUnit alu = new ArithmeticLogicUnit(ArithmeticLogicUnit.SIGNAL_ADD);
+					ArithmeticLogicUnit alu = new ArithmeticLogicUnit("Data memory " + this.name + " internal ULA", ArithmeticLogicUnit.SIGNAL_ADD);
 					alu.addInputSignal(ArithmeticLogicUnit.SIGNAL_ADD, ArithmeticLogicUnit.OPERATION_ADD);
 					address = alu.execute(address, four);
 					
@@ -74,7 +76,7 @@ public class InstructionMemory {
 
 	@Override
 	public String toString() {
-		String all_instr = "";
+		String all_instr = "Instruction memory - " + this.name;
 		
 		for (BitData key: this.memory.keySet()){
 			Instruction instr = this.memory.get(key);

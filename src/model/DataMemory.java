@@ -21,35 +21,28 @@ public class DataMemory {
 	
 	private boolean writeSignal;
 	private boolean readSignal;
+	private String name;
 	
-	public DataMemory(boolean initWriteSignal, boolean initReadSignal) {
+	public DataMemory(String name, boolean initWriteSignal, boolean initReadSignal) {
 		super();
 		
 		this.writeSignal = initWriteSignal;
 		this.readSignal = initReadSignal;
+		this.name = name;
 	}
 	
-	public DataMemory() throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
+	public DataMemory(String name) throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
 		super();
-		ArithmeticLogicUnit alu = new ArithmeticLogicUnit(ArithmeticLogicUnit.SIGNAL_ADD);
+		ArithmeticLogicUnit alu = new ArithmeticLogicUnit("Data memory " + this.name + "Internal ULA", ArithmeticLogicUnit.SIGNAL_ADD);
 		alu.addInputSignal(ArithmeticLogicUnit.SIGNAL_ADD, ArithmeticLogicUnit.OPERATION_ADD);
 		
 		this.writeSignal = false;
 		this.readSignal = false;
-		this.length = (int) Math.pow(2, ADDRESS_SIZE);
+		this.length = 0;
 		this.memory = new HashMap<BitData, BitData>();
+		this.name = name;
 		
 		this.address = new BitData(ADDRESS_SIZE);
-		
-		System.out.println(length);
-		
-		BitData address = new BitData(32);
-		BitData one = new BitData("00000000000000000000000000000001");
-		
-		for(int i = 0; i < this.length; i++) {
-			memory.put(address, new BitData(DATA_SIZE));
-			address = alu.execute(address, one);
-		}
 	}
 	
 	public BitData readData() throws DataMemoryException {
@@ -63,8 +56,8 @@ public class DataMemory {
 				throw new DataMemoryException("Data from memory address [" + this.address.toString("") + "] is null");
 			}
 		}
-		else {
-			throw new DataMemoryException("You can't read data from memory without set 'read' signal.");
+		else{
+			return null;
 		}
 	}
 	
@@ -80,7 +73,17 @@ public class DataMemory {
 		if(this.writeSignal) {
 			if(data.length() == DATA_SIZE) {
 				if(this.address != null) {
-					this.memory.put(this.address, data);
+					BitData value = this.memory.get(this.address);
+					
+					if(value == null){
+						this.memory.put(this.address, data);
+						this.length++;
+					}
+					else{
+						//Override current memory value
+						this.memory.put(this.address, data);
+					}
+					
 				}
 				else{
 					throw new DataMemoryException("Invalid write address! Address: " + this.address);
@@ -100,19 +103,31 @@ public class DataMemory {
 			throw new DataMemoryException("Address need to have " + ADDRESS_SIZE + " bit(s), but has " + address.length() + " bit(s)");
 		}
 	}
+	
+	public BitData getAddress(){
+		return this.address;
+	}
 
 	@Override
 	public String toString() {
-		String regs = "Length: " + length + "\n";
+		String regs = "Data memory - " + this.name + "\n";
+		regs += "Length: " + length + "\n";
 		regs = regs + "Write Signal: " + (writeSignal ? 1 : 0) + "\n";
 		regs = regs + "Read Signal: " + (readSignal ? 1 : 0) + "\n";
 		
-		regs = regs + "Current address:\n Address[" + address.toString("") + "](" + address.toZeroPadDecimal() + ") Value[" + this.memory.get(address).toString("") + "]\n";
+		String currentAddressValue = (this.memory.get(this.address) != null) ? this.memory.get(this.address).toString("") : "empty";
+		
+		regs = regs + "Current address:\n Address[" + this.address.toString("") + "](" + this.address.toZeroPadDecimal() + ") Value[" + currentAddressValue + "]\n";
 		
 		regs = regs + "All memory addresses:\n";
-		for (BitData key: this.memory.keySet()){
-			regs = regs + " - Address[" + key.toString("") + "](" + key.toZeroPadDecimal() + ") Value[" + this.memory.get(key).toString("") + "]\n";
+		if(this.length == 0){
+			regs = regs + " - empty";
 		}
+		else{
+			for (BitData key: this.memory.keySet()){
+				regs = regs + " - Address[" + key.toString("") + "](" + key.toZeroPadDecimal() + ") Value[" + this.memory.get(key).toString("") + "]\n";
+			}
+		}	
 		
 		return regs;
 	}

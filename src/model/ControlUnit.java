@@ -40,12 +40,14 @@ public class ControlUnit {
 	};
 	
 	private Map<String, Boolean> current_outputs;
+	private String name;
 	
-	public ControlUnit() {
+	public ControlUnit(String name) {
 		super();
 		
 		this.current_outputs = new HashMap<String, Boolean>();
 		this.current_opcode = new BitData(Instruction.OPCODE_SIZE);
+		this.name = name;
 		
 		for(String key :output_keys) {
 			current_outputs.put(key, false);
@@ -170,7 +172,7 @@ public class ControlUnit {
 		}
 		
 		return 
-			"Control Unit:\n" +
+			"Control Unit - " + this.name + ":\n" +
 			"- opcode: " + opcode + "\n" +
 			"- outputs:\n" + outputs;
 	}

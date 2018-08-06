@@ -10,20 +10,23 @@ public class Multiplexer {
 	
 	private boolean[] controlSignal;
 	private int signalSize;
+	private String name;
 	
-	public Multiplexer(boolean[] initSignal) {
+	public Multiplexer(String name, boolean[] initSignal) {
 		super();
 		
 		this.signalSize = initSignal.length;
 		this.controlSignal = initSignal;
+		this.name = name;
 		
 		this.inputs = new HashMap<BitData, BitData>();
 	}
 	
-	public Multiplexer(int signalSize) {
+	public Multiplexer(String name, int signalSize) {
 		super();
 		
 		this.signalSize = signalSize;
+		this.name = name;
 		
 		boolean[] initSignal = new boolean[signalSize];
 		for(int i = 0; i < signalSize; i++) {
@@ -91,13 +94,18 @@ public class Multiplexer {
 	
 	@Override
 	public String toString() {
-		
+		String title = "Multiplexer - " + this.name + "\n";
 		String current_signal = "Signal size: " + signalSize + "\nCurrent signal: " + BitData.booleanToBitData(this.controlSignal) + "\n";
 		String str_inputs = "Inputs:\n";
 		String str_output = "Output: ";
 		
 		for (BitData key: this.inputs.keySet()){
-			str_inputs = str_inputs + " - Signal[" + key.toString("") + "](" + key.toZeroPadDecimal() + ") Value[" + this.inputs.get(key).toString("") + "]\n";  
+			if(this.inputs.get(key) == null) {
+				str_inputs = str_inputs + " - Signal[" + key.toString("") + "](" + key.toZeroPadDecimal() + ") Value[" + "null" + "]\n";  
+			}
+			else {
+				str_inputs = str_inputs + " - Signal[" + key.toString("") + "](" + key.toZeroPadDecimal() + ") Value[" + this.inputs.get(key).toString("") + "]\n";  
+			}
 		}
 		
 		BitData output = this.inputs.get(getBitDataSignal());
@@ -109,7 +117,7 @@ public class Multiplexer {
 			str_output = str_output + output.toString("");
 		}
 		
-		return current_signal + str_inputs + str_output;
+		return title + current_signal + str_inputs + str_output;
 	}
 	
 	

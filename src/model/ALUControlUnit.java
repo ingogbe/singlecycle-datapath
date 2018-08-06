@@ -1,16 +1,19 @@
 package model;
 
+
 import exception.ALUControlUnitException;
 
 public class ALUControlUnit {
 	
-	BitData output;
-	BitData funct;
+	private BitData output;
+	private BitData funct;
+	private String name;
 	
 	private boolean[] controlSignal;
-	public static final int SIGNAL_SIZE = 2;
+	private boolean li_signal;
+	public static final int SIGNAL_SIZE = 3;
 	
-	public ALUControlUnit() throws ALUControlUnitException {
+	public ALUControlUnit(String name) throws ALUControlUnitException {
 		super();
 		
 		boolean[] initSignal = {false, false};
@@ -18,11 +21,14 @@ public class ALUControlUnit {
 		this.funct = null;
 		this.output = new BitData(3);
 		this.controlSignal = initSignal;
+		this.li_signal = false;
+		this.name = name;
 	}
 	
-	public void setControlSignal(boolean signal1, boolean signal0) {
+	public void setControlSignal(boolean signal1, boolean signal0, boolean li_signal) {
 		this.controlSignal[0] = signal1;
 		this.controlSignal[1] = signal0;
+		this.li_signal = li_signal;
 	}
 	
 	public void setFunct(boolean[] funct) throws ALUControlUnitException {
@@ -62,12 +68,31 @@ public class ALUControlUnit {
 		if(this.funct != null) {
 			BitData functAux = this.funct.getInverted();
 			
-			return (!functAux.get(0) && !functAux.get(1) && !functAux.get(2) && functAux.get(3));
+			return (!functAux.get(0) && !functAux.get(1) && !functAux.get(2) && functAux.get(3) && !li_signal);
 		}
 		else {
 			throw new ALUControlUnitException("Funct not setted! Funct: null");
 		}
 	}
+
+	@Override
+	public String toString() {
+		String str = "ALU Control Unit - " + this.name + "\n";
+		str += "Funct: " + this.getFunct() + "\n";
+		str += "Signal: " + BitData.booleanToBitData(this.getControlSignal()) + "\n";
+		try {
+			str += "Operation: " + this.getOutput() + "\n";
+			str += "JR: " + this.getJR() + "\n";
+		} catch (ALUControlUnitException e) {
+			str += "Operation: funct not setted\n";
+			str += "JR: funct not setted\n";
+		}
+		
+		
+		return str;
+	}
+	
+	
 	
 	
 	

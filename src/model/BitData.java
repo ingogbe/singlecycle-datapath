@@ -15,7 +15,7 @@ public class BitData extends BitSet{
 		this.set(0, size, false);
 	}
 	
-	public BitData(int size, BitSet bs) {
+	public BitData(int size, BitData bs) {
 		super(size);
 		
 		this.length = size;
@@ -169,6 +169,8 @@ public class BitData extends BitSet{
 		return String.format("%0" + String.valueOf(max_number).length() + "d", decimal);
 	}
 	
+	
+	
 	public static BitData booleanToBitData(boolean[] b) {
 		BitData bd = new BitData(b.length);
 		
@@ -177,6 +179,16 @@ public class BitData extends BitSet{
 		}
 		
 		return bd;
+	}
+	
+	public static boolean[] bitDataToBoolean(BitData bd) {
+		boolean b[] = new boolean[bd.length];
+		
+		for(int i = 0; i < b.length; i++) {
+			b[i] = bd.get(i);
+		}
+		
+		return b;
 	}
 	
 	
