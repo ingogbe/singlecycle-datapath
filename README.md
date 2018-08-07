@@ -30,6 +30,8 @@ Use files in the `test` folder as input, or create new ones with 32 bits strings
 
 Program start in an infinity loop (`while (true)`) and executes all the instructions loaded from file. When an error occurs or instructions end, program throws an exception and stop. Some set of instructions can cause infinity loop, like jump back without exit condition.
 
+[Download](https://github.com/ingoguilherme/singlecyle-datapath/releases/tag/1.0.0)
+
 ## Instruction support
 
 - Arithmetic Operations: `add`, `sub`
