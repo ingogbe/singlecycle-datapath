@@ -169,6 +169,16 @@ public class BitData extends BitSet{
 		return String.format("%0" + String.valueOf(max_number).length() + "d", decimal);
 	}
 	
+	public boolean[] toBoolean() {
+		boolean b[] = new boolean[this.length];
+		
+		for(int i = 0; i < b.length; i++) {
+			b[i] = this.get(i);
+		}
+		
+		return b;
+	}
+	
 	
 	
 	public static BitData booleanToBitData(boolean[] b) {

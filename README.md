@@ -3,20 +3,20 @@
 ## Description
 
 Components created individually, like datapath image below:
-- ALU Control Unit
-- Arithmetic Logic Unit
-- Barrel Extensor
-- Barrel Shifter
-- Control Unit
-- Data Memory
-- Instruction Memory
-- Multiplexer
-- Registers Memory
+- `ALU Control Unit`
+- `Arithmetic Logic Unit`
+- `Barrel Extensor`
+- `Barrel Shifter`
+- `Control Unit`
+- `Data Memory`
+- `Instruction Memory`
+- `Multiplexer`
+- `Registers Memory`
 
 Other components:
-- Instruction: Object to facilitate the input of bits in each component
-- BitData: Extends BitSet class and added extra functions to handle the bits in this project
-- Datapath: Links all the components like in the image and build the singlecycle datapath
+- `Instruction`: Object to facilitate the input of bits in each component
+- `BitData`: Extends BitSet class and added extra functions to handle the bits in this project
+- `Datapath`: Links all the components like in the image and build the singlecycle datapath
 
 ## Usage
 
