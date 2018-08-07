@@ -25,7 +25,7 @@ public class Datapath {
 	private BarrelShifter shiftLeft2_addr_instruction;
 	private ControlUnit controlUnit;
 	private Multiplexer multiplexer_regDst_writeRegister;
-	private Registers registers;
+	private RegistersMemory registers;
 	private BarrelExtensor signalExtensor_addr_instruction;
 	private BarrelExtensor signalExtensor;
 	private Multiplexer multiplexer_ext_reg;
@@ -55,7 +55,7 @@ public class Datapath {
 		this.alu_pcPlusFour = new ArithmeticLogicUnit("ALU PC + 4", ArithmeticLogicUnit.SIGNAL_ADD);
 		this.alu_pcPlusFour.addInputSignal(ArithmeticLogicUnit.SIGNAL_ADD, ArithmeticLogicUnit.OPERATION_ADD);
 		this.controlUnit = new ControlUnit("Control 1");
-		this.registers = new Registers("Registers memory");
+		this.registers = new RegistersMemory("Registers memory");
 		//this.multiplexer_li_writeRegister = new Multiplexer("li writeRegister mux", 1);
 		this.multiplexer_regDst_writeRegister = new Multiplexer("regDst writeRegister mux", 1);
 		this.shiftLeft2_addr_instruction = new BarrelShifter("shift left 2 instruction addr");

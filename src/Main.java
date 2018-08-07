@@ -24,7 +24,7 @@ import model.Datapath;
 import model.Instruction;
 import model.InstructionMemory;
 import model.Multiplexer;
-import model.Registers;
+import model.RegistersMemory;
 
 public class Main {
 	
@@ -74,7 +74,7 @@ public class Main {
 			System.out.println("Instruction after opcode processed (has type)");
 			System.out.println(instruction.toString());
 			
-			Registers regs = new Registers("reg test");
+			RegistersMemory regs = new RegistersMemory("reg test");
 			regs.setReadRegister1(BitData.booleanToBitData(instruction.getRS()));
 			regs.setReadRegister2(BitData.booleanToBitData(instruction.getRT()));
 			regs.setWriteRegister1(BitData.booleanToBitData(instruction.getRD()));

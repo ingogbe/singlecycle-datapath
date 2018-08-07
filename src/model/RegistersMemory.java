@@ -9,7 +9,7 @@ import exception.BitDataException;
 import exception.MultiplexerException;
 import exception.RegistersException;
 
-public class Registers {
+public class RegistersMemory {
 	
 	public static final int REGISTER_SIZE = 32;
 	public static final int READ_ADDRESS_SIZE = 5;
@@ -25,14 +25,14 @@ public class Registers {
 	private boolean writeSignal;
 	private String name;
 	
-	public Registers(String name, boolean initSignal) {
+	public RegistersMemory(String name, boolean initSignal) {
 		super();
 		
 		this.name = name;
 		this.writeSignal = initSignal;
 	}
 	
-	public Registers(String name) throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
+	public RegistersMemory(String name) throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
 		super();
 		ArithmeticLogicUnit alu = new ArithmeticLogicUnit("Registers " + this.name + " internal ALU", ArithmeticLogicUnit.SIGNAL_ADD);
 		alu.addInputSignal(ArithmeticLogicUnit.SIGNAL_ADD, ArithmeticLogicUnit.OPERATION_ADD);
