@@ -59,7 +59,7 @@ public class Datapath {
 		//this.multiplexer_li_writeRegister = new Multiplexer("li writeRegister mux", 1);
 		this.multiplexer_regDst_writeRegister = new Multiplexer("regDst writeRegister mux", 1);
 		this.shiftLeft2_addr_instruction = new BarrelShifter("shift left 2 instruction addr");
-		this.signalExtensor_addr_instruction = new BarrelExtensor("addr extensor 26->28");
+		this.signalExtensor_addr_instruction = new BarrelExtensor("addr extensor 26->32");
 		this.signalExtensor = new BarrelExtensor("const extensor 16->32");
 		this.multiplexer_ext_reg = new Multiplexer("extensor-register mux", 1);
 		this.aluControl = new ALUControlUnit("ALU Zero Control");
