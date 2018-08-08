@@ -47,14 +47,35 @@ Program start in an infinity loop (`while (true)`) and executes all the instruct
 
 ![Single cycle datapath](img/datapath.jpg)
 
-## Instruction console output example
+## Instruction Memory - Console output example
+
+```
+Instruction memory - Memory 1
+Instruction: 00111100000100010000000000001001 | 32 | Address: 00000000000000000000000000000100 (4)
+Instruction: 00111100000100000000000000001000 | 32 | Address: 00000000000000000000000000000000 (0)
+Instruction: 00111100000111000000000000110010 | 32 | Address: 00000000000000000000000000001000 (8)
+Instruction: 10101111100100000000000000000000 | 32 | Address: 00000000000000000000000000001100 (12)
+Instruction: 10101111100100010000000000000100 | 32 | Address: 00000000000000000000000000010000 (16)
+Instruction: 10001111100010000000000000000000 | 32 | Address: 00000000000000000000000000010100 (20)
+Instruction: 10001111100010010000000000000100 | 32 | Address: 00000000000000000000000000011000 (24)
+Instruction: 00000001000010010101000000100000 | 32 | Address: 00000000000000000000000000011100 (28)
+Instruction: 00000001000010010111000000100101 | 32 | Address: 00000000000000000000000000101100 (44)
+Instruction: 00000001000010010101100000100010 | 32 | Address: 00000000000000000000000000100000 (32)
+Instruction: 00000001001010000110000000100010 | 32 | Address: 00000000000000000000000000100100 (36)
+Instruction: 00000001000010010110100000100100 | 32 | Address: 00000000000000000000000000101000 (40)
+```
+
+## Instruction execution on Datapath - Console output example
+
+Instruction address: `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0`
+Instruction: `li $16,8`
 
 ```
 Instruction 0
 Current PC: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
-[ 0| 0| 1| 1| 1| 1| 0| 0| 0| 0| 0| 1| 0| 0| 1| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 1| 0| 0| 0] <= Instruction
-[ 0| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31] <= Position
+[ 0| 0| 1| 1| 1| 1| 0| 0| 0| 0| 0| 1| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 1| 0| 0| 0] <= Instruction
+[31|30|29|28|27|26|25|24|23|22|21|20|19|18|17|16|15|14|13|12|11|10| 9| 8| 7| 6| 5| 4| 3| 2| 1| 0] <= Position
 [ OPCODE          |                                                                             ] <= Format not recognized yet
 
 PC+4: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
@@ -76,34 +97,34 @@ Control Unit - Control 1:
   - memWrite = false
 
 Instruction after Control unit:
-[ 0| 0| 1| 1| 1| 1| 0| 0| 0| 0| 0| 1| 0| 0| 1| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 1| 0| 0| 0] <= Instruction
-[ 0| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31] <= Position
+[ 0| 0| 1| 1| 1| 1| 0| 0| 0| 0| 0| 1| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 0| 1| 0| 0| 0] <= Instruction
+[31|30|29|28|27|26|25|24|23|22|21|20|19|18|17|16|15|14|13|12|11|10| 9| 8| 7| 6| 5| 4| 3| 2| 1| 0] <= Position
 [ OPCODE          | RS           | RT           | CONST/END                                     ] <= I format
 
 Set Registers 'read reg1 address': 0 0 0 0 0
-Set Registers 'read reg2 address': 1 0 0 1 0
+Set Registers 'read reg2 address': 1 0 0 0 0
 
 Multiplexer - regDst writeRegister mux
 Signal size: 1
 Current signal: 0
 Inputs:
- - Signal[0](0) Value[10010]
+ - Signal[0](0) Value[10000]
  - Signal[1](1) Value[00000]
-Output: 10010
+Output: 10000
 
-Setting Registers 'write reg address': 1 0 0 1 0
+Setting Registers 'write reg address': 1 0 0 0 0
 
 Barrel Extensor - addr extensor 26->32
-Input: 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0/ Size:26
+Input: 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0/ Size:26
 Extended 32 bit(s)
-Output: 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0/ Size:32
+Output: 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0/ Size:32
 
 Barrel Shifter - shift left 2 instruction addr
-Input: 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 / Size: 32
+Input: 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 / Size: 32
 Shift 2 bit(s)
-Output: 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 / Size: 32
+Output: 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 / Size: 32
 
-instruction_addr_shifted_extended OR (pc+4' AND 0xF0000000): 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0/ Size: 32
+instruction_addr_shifted_extended OR (pc+4' AND 0xF0000000): 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0/ Size: 32
 
 Barrel Extensor - const extensor 16->32
 Input: 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0/ Size:16
@@ -175,7 +196,7 @@ Signal size: 1
 Current signal: 0
 Inputs:
  - Signal[0](0) Value[00000000000000000000000000000100]
- - Signal[1](1) Value[00000000010010000000000000100000]
+ - Signal[1](1) Value[00000000010000000000000000100000]
 Output: 00000000000000000000000000000100
 
 Data memory - Data memory 1
@@ -209,8 +230,8 @@ Registers: Registers memory
 Length: 32
 Write Signal: 1
 Read register 1: Address[00000](00) Value[00000000000000000000000000000000]
-Read register 2: Address[10010](18) Value[00000000000000000000000000001000]
-Write register : Address[10010](18) Value[00000000000000000000000000001000]
+Read register 2: Address[10000](16) Value[00000000000000000000000000001000]
+Write register : Address[10000](16) Value[00000000000000000000000000001000]
 All registers:
  - Address[01001](09) Value[00000000000000000000000000000000]
  - Address[11001](25) Value[00000000000000000000000000000000]
@@ -231,7 +252,7 @@ All registers:
  - Address[01000](08) Value[00000000000000000000000000000000]
  - Address[11000](24) Value[00000000000000000000000000000000]
  - Address[00000](00) Value[00000000000000000000000000000000]
- - Address[10000](16) Value[00000000000000000000000000000000]
+ - Address[10000](16) Value[00000000000000000000000000001000]
  - Address[01100](12) Value[00000000000000000000000000000000]
  - Address[11100](28) Value[00000000000000000000000000000000]
  - Address[00100](04) Value[00000000000000000000000000000000]
@@ -239,7 +260,7 @@ All registers:
  - Address[01010](10) Value[00000000000000000000000000000000]
  - Address[11010](26) Value[00000000000000000000000000000000]
  - Address[00010](02) Value[00000000000000000000000000000000]
- - Address[10010](18) Value[00000000000000000000000000001000]
+ - Address[10010](18) Value[00000000000000000000000000000000]
  - Address[01110](14) Value[00000000000000000000000000000000]
  - Address[11110](30) Value[00000000000000000000000000000000]
  - Address[00110](06) Value[00000000000000000000000000000000]
