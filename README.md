@@ -23,14 +23,14 @@ Other components:
 Download the latest version on the 'release' tab and run the console with the command below. Or open in some Java IDE and run it.
 
 ```
-java -jar singlecyle-datapath-1.0.0.jar
+java -jar singlecyle-datapath-1.1.0.jar
 ```
 
 Use files in the `test` folder as input, or create new ones with 32 bits strings.
 
 Program start in an infinity loop (`while (true)`) and executes all the instructions loaded from file. When an error occurs or instructions end, program throws an exception and stop. Some set of instructions can cause infinity loop, like jump back without exit condition.
 
-[Download](https://github.com/ingoguilherme/singlecyle-datapath/releases/tag/1.0.0)
+[Download](https://github.com/ingoguilherme/singlecyle-datapath/releases/tag/1.1.0)
 
 ## Instruction support
 
