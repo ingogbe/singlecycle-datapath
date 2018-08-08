@@ -68,6 +68,7 @@ Instruction: 00000001000010010110100000100100 | 32 | Address: 000000000000000000
 ## Instruction execution on Datapath - Console output example
 
 Instruction address: `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0`
+
 Instruction: `li $16,8`
 
 ```
