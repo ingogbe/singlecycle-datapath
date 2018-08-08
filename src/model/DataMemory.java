@@ -33,8 +33,6 @@ public class DataMemory {
 	
 	public DataMemory(String name) throws BitDataException, MultiplexerException, ArithmeticLogicUnitException, BarrelShifterException, BarrelExtensorException {
 		super();
-		ArithmeticLogicUnit alu = new ArithmeticLogicUnit("Data memory " + this.name + "Internal ULA", ArithmeticLogicUnit.SIGNAL_ADD);
-		alu.addInputSignal(ArithmeticLogicUnit.SIGNAL_ADD, ArithmeticLogicUnit.OPERATION_ADD);
 		
 		this.writeSignal = false;
 		this.readSignal = false;

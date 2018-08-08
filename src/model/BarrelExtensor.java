@@ -30,10 +30,18 @@ public class BarrelExtensor {
 		if(this.input != null) {
 			BitData result = new BitData(this.extendTo_nBits);
 			
-			for(int i = 0; i < this.extendTo_nBits; i++) {
+			for(int i = 0; i < this.extendTo_nBits; i++) {			
 				if(i >= (this.extendTo_nBits - this.input.length())) {
 					if(this.input.get(i - (this.extendTo_nBits - this.input.length()))) {
 						result.set(i);
+					}
+				}
+				else{
+					if(this.input.get(0)){
+						result.set(i);
+					}
+					else{
+						result.clear(i);
 					}
 				}
 			}

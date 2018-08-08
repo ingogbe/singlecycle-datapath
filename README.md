@@ -39,6 +39,10 @@ Program start in an infinity loop (`while (true)`) and executes all the instruct
 - Load/Store: `li`, `lw`, `sw`
 - Control Flow: `j`, `jr`, `beq`, `bne`
 
+## TODO
+
+- 
+
 ## Datapath image
 
 ![Single cycle datapath](img/datapath.jpg)

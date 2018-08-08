@@ -173,18 +173,18 @@ public class Instruction {
 		String x_instruction = "[" + opcode + "|" + "                                                                             ] <= Format not recognized yet";
 		
 		for(int i = 0; i < INSTRUCTION_SIZE; i++) {
-			if(i < 10) {
-				pos = pos + " " + i + "|";
+			if(i < 22) {
+				pos += (INSTRUCTION_SIZE - 1 - i) + "|";
 				ins = ins + " " + this.instruction.getCharBit(i) + "|";
 			}
 			else {
 				if(i == (INSTRUCTION_SIZE - 1)) {
 					ins = ins + " " + this.instruction.getCharBit(i);
-					pos = pos + i;
+					pos += " " + (INSTRUCTION_SIZE - 1 - i);
 				}
 				else {
 					ins = ins + " " + this.instruction.getCharBit(i) + "|";
-					pos = pos + i + "|";
+					pos += " " + (INSTRUCTION_SIZE - 1 - i) + "|";
 				}
 			}
 		}
